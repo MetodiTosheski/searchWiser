@@ -1,0 +1,176 @@
+﻿
+@section Scripts {
+    <script src="~/Content/js/app-category.js"></script>
+    <script src="~/Content/js/app/profileController.js"></script>
+<script src="~/Content/js/CategoryController.js"></script>
+}
+<div ng-app="app-category">
+    <div ng-controller="profileController">
+        <div class="profileData col-lg-12 col-md-12 col-xs-12 col-sm-12">
+            <img class="profileImage" src="https://media.licdn.com/media/AAEAAQAAAAAAAAXlAAAAJGVhNzc2ZThhLTgwMmMtNGE0My1hZGI2LWE1NzQ4ZDQ4MDYyOQ.jpg" />
+            <div class="pull-right">
+                <button class="btn btn-default btnTransparent changePassword">
+                <span class="glyphicon glyphicon-chevron-down"></span> Change Password
+                </button><br />
+                <div class="newPasswordData" style="display:none;">
+                    <span class="pull-left">*New Password</span>
+                    <input type="password" ng-model="pw1" class="form-control" />
+                    <span class="pull-left">*Retype New Password</span>
+                    <input type="password" ng-model="pw2" class="form-control" />
+                    <span style="color: red; display:none;" class="errorPasswordMsg">Passwords don't match.</span>
+                    <button class="btn btn-success pull-left" ng-click="savePassword()" title="save">Save</button>
+                </div>
+            </div>
+            <h3>Welcome <strong>{{user}}</strong></h3>
+            <span class="profStars"></span>
+        </div>
+        <div style="display:none;" class="col-lg-12 col-xs-12 pendingData">
+            <h3>Pending data for approving</h3>
+            <h4>Synonyms</h4>
+            <table class="table table-hover">
+                  <tr>
+                      <th>
+                          Word
+                      </th>
+                      <th>
+                          Category
+                      </th>
+                      <th>
+                          Group
+                      </th>
+                      <th>
+                          Approved
+                      </th>
+                      <th>
+                          Actions
+                      </th>
+                  </tr>             
+                <tbody>
+                    <tr ng-repeat="res in Words">
+                        <td>
+                            <input type="text" class="form-control" ng-model="res.Word" />
+                        </td>
+                        <td>
+                            <select class="form-control" ng-init="res.CategoryID" ng-model="res.Category" ng-options="option for option in categories"></select>
+                        </td>
+                        <td>
+                            <button class="btn btn-default btnTransparent" data-toggle="modal" data-target="#myModal1" ng-click="viewGroup(res)"><span class="glyphicon glyphicon-eye-open"></span> View group</button>
+                        </td>
+                        <td>
+                            <select class="form-control" ng-init="res.Available" ng-model="res.Approved" ng-options="option for option in approved"></select>
+                        </td>
+                        <td>
+                            <button ng-click="save(res)" class="btn btn-success glyphicon glyphicon-ok" title="save"></button>
+                            <button ng-click="remove(res)" class="btn btn-danger glyphicon glyphicon-remove" title="delete"></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="myModal1" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Check data group where the synonym is added</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="groupWindow">
+                                <ul ng-repeat="item in groupSynonymResult">
+                                    <li>{{item.Word}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            <h4>
+                Search Strings
+            </h4>
+            <table class="table table-hover">
+                <tr>
+                    <th>
+                        Word
+                    </th>
+                    <th>
+                        Category
+                    </th>
+                    <th>
+                        Group
+                    </th>
+                    <th>
+                        Approved
+                    </th>
+                    <th>
+                        Actions
+                    </th>
+                </tr>
+                <tbody>
+                    <tr ng-repeat="res in SearchStrigns">
+                        <td>
+                            <input type="text" class="form-control" ng-model="res.SearchString" />
+                        </td>
+                        <td>
+                            <select class="form-control" ng-init="res.CategoryID" ng-model="res.Category" ng-options="option for option in categories"></select>
+                        </td>
+                        <td>
+                            <button style="color:white;" class="btn btn-default btnTransparent" data-toggle="modal" data-target="#myModal2" ng-click="viewGroup(res)"><span class="glyphicon glyphicon-eye-open"></span>  View group</button>
+                        </td>
+                        <td>
+                            <select class="form-control" ng-init="res.Available" ng-model="res.Approved" ng-options="option for option in approved"></select>
+                        </td>
+                        <td>
+                            <button ng-click="save(res)" class="btn btn-success glyphicon glyphicon glyphicon-ok" title="save"></button>
+                            <button ng-click="remove(res)" class="btn btn-danger glyphicon glyphicon-remove" title="delete"></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div id="myModal2" style="color: black;" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 style="color: black;" class="modal-title">Check data group where the Search String is added</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="groupWindow">
+                                <ul ng-repeat="item in groupSearchStringResult">
+                                    <li>{{item.SearchString}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>
+        <div class="col-lg-12 pesonalData col-xs-12 ">
+            <h4>List of personal inputs:</h4>
+            <div class="col-lg-5">
+                <strong>Synonyms:</strong>
+                <ul ng-repeat="word in userWords">
+                    <li>
+                        {{word.Word}}
+                    </li>
+                </ul> 
+            </div>
+            <div class="col-lg-7">
+                <strong>Search Strings:</strong>
+                <ul ng-repeat="str in userStr">
+                    <li>
+                        {{str.SearchString}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

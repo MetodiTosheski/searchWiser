@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="DefaultConnection-Web.config Connection String" description="DefaultConnection Connection String used in web.config by the application to access the database." defaultValue="Data Source=(LocalDb)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\aspnet-FrontwiseRecruitingApp-20160223035732.mdf;Initial Catalog=aspnet-FrontwiseRecruitingApp-20160223035732;Integrated Security=True" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Metodi\ Tosheski\\documents\\visual\ studio\ 2015\\Projects\\FrontwiseRecruitingApp\\FrontwiseRecruitingApp\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='DefaultConnection']/@connectionString" />
+  </parameter>
+  <parameter name="RecruitingDatabaseEntities-Web.config Connection String" description="RecruitingDatabaseEntities Connection String used in web.config by the application to access the database." defaultValue="metadata=res://*/Models.RecruitingDatabase.csdl|res://*/Models.RecruitingDatabase.ssdl|res://*/Models.RecruitingDatabase.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=Mende;initial catalog=RecruitingDatabase;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" tags="SqlConnectionString">
+    <parameterEntry kind="XmlFile" scope="C:\\Users\\Metodi\ Tosheski\\documents\\visual\ studio\ 2015\\Projects\\FrontwiseRecruitingApp\\FrontwiseRecruitingApp\\obj\\Release\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='RecruitingDatabaseEntities']/@connectionString" />
+  </parameter>
+</parameters>

@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    <!--<script src="~/Scripts/angular/angular.js"></script>-->
+    <link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <link rel="icon" href="~/Content/img/favicon.png" type="image/gif" sizes="16x16">
+</head>
+<body>
+    <div class="navmenu navmenu-default navmenu-fixed-left offcanvas">
+        <br />
+        <a class="navmenu-brand" id="profileView"></a>
+        <ul class="nav navmenu-nav userStats">
+            <li><h4>Points: <span class="numPoints"></span></h4></li>
+            <li><h4>Stars: <span class="numStars"></span> </h4></li>
+            <li><button class="btn btn-default" id="btnAdmin"><h4>Admin panel</h4></button></li>
+        </ul>
+    </div>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                    <button type="button" class="visible-lg visible-md visible-sm visible-xs navbar-toggle pull-left" data-toggle="offcanvas" data-target=".navmenu" data-canvas="body">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>       
+                <a href="/Home/Index"><img alt="searchWiser" src="~/Content/img/search-wiser-logo.png" /></a>
+            </div>
+            <div class="user visible-lg">
+            <button class="btn btn-default" id="btnAdmin2">Admin panel</button>
+            <span><span class="glyphicon glyphicon-user"></span> 
+                <button class="btn btn-default" id="profileView2" ><span id="user"></span></button></span>
+                <button style="display: none;" class="btn btn-default" id="logout">Logout</button>
+            </div>
+           <!--<span class="user visible-xs">User: <span class="glyphicon glyphicon-user"></span></span>-->
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+        <footer>
+            <p>Copyright Frontwisegroup | All rights reserved &copy; @DateTime.Now.Year</p>
+        </footer>
+    </div>
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

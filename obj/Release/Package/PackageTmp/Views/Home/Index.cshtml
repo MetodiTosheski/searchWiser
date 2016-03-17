@@ -1,0 +1,278 @@
+﻿@section Scripts {
+    <script src="~/Content/js/app-category.js"></script>
+    <script src="~/Content/js/CategoryController.js"></script>
+ }
+<div id="bodyIndex">
+    <div ng-app="app-category">
+        <div id="splash">
+            <img id="splash-img" src="~/Content/img/magnifyWH.svg" />
+        </div>  
+        <div ng-controller="CategoryController" style="display:none;" class="container col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                 <br />
+                <div class="col-lg-12 col-xs-12 search-control">
+                    <img class="img-responsive" src="~/Content/img/logo-login-final.png" />
+                    <div class="col-lg-12 col-xs-12">
+                        <h3>Search Synonyms and Strings</h3>
+                        <form class="form-inline">
+                            <input type="text" class="search-field form-control col-lg-9 col-sm-9 col-md-9 col-xs-8" ng-model="searchInput" placeholder="start typing...">
+                            <button class="btn btn-default col-lg-1 col-sm-1 col-md-1 col-xs-1 searchBtn"><span class="glyphicon glyphicon-search"></span></button>
+                            <button ng-click="insertNewGroup()" class="btn btn-default btnAdd btn btn-success col-lg-1 col-sm-1 col-md-1 col-xs-1"><span class="glyphicon glyphicon-plus"></span></button>
+                        </form>
+                        <div class="additionlSearchSettings">
+                            <div class="pull-left">
+                                <button class="btn btn-default" ng-click="activateAdvanced()">
+                                    <span class="glyphicon glyphicon-plus"></span>
+                                    <span class="hidden-xs"> Advanced search</span>
+                                </button>
+                            </div>
+                            <div class="pull-right">
+                                <input class="form-control radioBtns" name="group" value="public" type="radio" id="privateRBtn" ng-model="value" ng-change="radioChange(value)" /><span for="privateRBtn">Public</span>
+                                <input class="form-control radioBtns" name="group" value="private" type="radio" id="publicRBtn" ng-model="value" ng-change="radioChange(value)" /><span for="publicRBtn">Private</span>
+                            </div>
+                        </div>
+                        <br />
+                        <br />
+                    </div>
+                </div> 
+                <div style="display:none;" class="additionalSettings col-lg-12 col-xs-12">
+                    <button title="Close" ng-click="closeAdvanced()" id="closeAdvancedBtn" class="btn btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+                            <div class="advancedSearchControls">
+                                <button id="btnSynonyms" class="btn btn-default" ng-click="type('synonyms')">Synonyms</button>
+                                <button id="btnSearchStrings" class="btn btn-default" ng-click="type('searchStrings')">Search Strings</button>
+                                <span ng-show="errorMessageTypeShow" class="glyphicon glyphicon-chevron-left" style="color: red;"></span>
+                            </div>
+                            <br />
+                            <br />
+                            <div id="type" class="categories">
+                                <div>
+                                    <strong>Job Title</strong><br />
+                                    <img ng-click="selectCategory(1)" class="categoriesSize img1" title="JobTitle" src="~/Content/img/category/job-tittle.png" />
+                                </div>
+                                <div>
+                                    <strong>Education</strong><br />
+                                    <img ng-click="selectCategory(4)" class="categoriesSize img4" title="Education" src="~/Content/img/category/education.png" />
+                                </div>
+                                <div>
+                                    <strong>Skills</strong><br />
+                                    <img ng-click="selectCategory(2)" class="categoriesSize img2" title="Skills" src="~/Content/img/category/skills.png" />
+                                </div>
+                                <div>
+                                    <strong>Certification</strong><br />
+                                    <img ng-click="selectCategory(3)" class="categoriesSize img3" title="Certification" src="~/Content/img/category/certification.png" />
+                                </div>
+                                <span ng-show="errorMessageCategoryShow" class="glyphicon glyphicon-chevron-left" style="color: red;"></span>
+                            </div>
+                            <br />
+                            <div ng-show="wordNotFound">
+                                <textarea class="textArea" style="color:black; width:70%;" type="text" rows="5" ng-model="searchInput"></textarea>
+                            </div>
+                            <div class="advancedDropDown" ng-show="!wordNotFound" style="display:none;" id="category">
+                                <select class="form-control" ng-show="!showType" ng-change="search()" ng-model="selectedTag" ng-options="tag.SearchStringGroupID as tag.SearchString for tag in tags "></select>
+                                <select class="form-control" ng-show="showType" ng-change="search()" ng-model="selectedTag" ng-options="tag.WordsGroup as tag.Word for tag in tags "></select>
+                            </div>
+                        <button class="btn btn-success pull-right"  ng-show="wordNotFound" id="addButton" ng-click="addNewWord()" >Add</button>
+                        <span class="errorType" ng-show="errorMessageTypeShow" style="color: red;">Type is not selected !</span>
+                        <span class="errorType" ng-show="errorMessageCategoryShow" style="color: red;">Category is not selected !</span><br />
+                    <br />
+                   </div>
+                     
+                <br />
+                <br />
+            </div>
+            <div ng-show="searchResultsAvailable"  id="searchResultsAvailable" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <h3><strong>Result Synonyms</strong></h3>
+                <hr />
+                <h4>Skills</h4>
+                <div class="searchResults">
+                    <ul ng-repeat="res in listSkills">
+                        <li>
+                            {{res.Word}}
+                        </li>
+                    </ul>
+                </div> 
+                <button ng-click="linkedinSearch(listSkills,'synonyms','keywords')" class="btn btn-info">
+                    <span class="glyphicon glyphicon-search">  
+                    </span><span class="hidden-xs"> &nbsp;Search on LinkedIn</span>
+                </button>
+                <button id="addSynonymSkills" class="btn btn-success pull-right" ng-click="showSynonym()">
+                    <span class="glyphicon glyphicon-plus-sign"></span> &nbsp;
+                    <span class="hidden-xs" >Add new</span>
+                </button>
+                <div id="showSynonymSkills" style="display:none;">
+                    <h4>Add new </h4>
+                    <span class="semicolon">*Please use ; (semicolon) if you want to add more than 1 {{selectedType}} !</span>
+                    <textarea type="text" class="textArea" ng-model="newSynonym" cols="165" rows="7"> </textarea> <br />
+                    <button class="btn btn-success" ng-click="addSynonym('skills')">Add</button> <br />
+                    <span class="savedMessage">The Application is wiser now!</span>
+                </div>
+                <h4>Job Titles</h4>
+                <div class="searchResults">
+                    <ul ng-repeat="res in listJobTittles">
+                        <li ng-show="showType">
+                            {{res.Word}}
+                        </li>
+                    </ul>
+                </div>
+                <button ng-click="linkedinSearch(listJobTittles,'synonyms','title')" class="btn btn-info">
+                    <span class="glyphicon glyphicon-search">
+                    </span><span class="hidden-xs">&nbsp;Search on LinkedIn</span>
+                </button>
+                <button id="addSynonymJobTittles" class="btn btn-success pull-right" ng-click="showSynonym()">
+                    <span class="glyphicon glyphicon-plus-sign"></span> &nbsp;
+                    <span class="hidden-xs">Add new</span>
+                </button>
+                <div id="showSynonymJobTittles" style="display:none;">
+                    <h4>Add new </h4>
+                    <span class="semicolon">*Please use ; (semicolon) if you want to add more than 1 {{selectedType}} !</span>
+                    <textarea type="text" class="textArea" ng-model="newSynonym" cols="165" rows="7"> </textarea> <br />
+                    <button class="btn btn-success" ng-click="addSynonym('jobtitles')">Add</button> <br />
+                    <span class="savedMessage">The Application is wiser now!</span>
+                </div>
+                <h4>Education</h4>
+                <div class="searchResults">
+                    <ul ng-repeat="res in listEducation">
+                        <li ng-show="showType">
+                            {{res.Word}}
+                        </li>
+                    </ul>
+                </div>
+                <button ng-click="linkedinSearch(listEducation,'synonyms','school')" class="btn btn-info">
+                    <span class="glyphicon glyphicon-search">
+                    </span><span class="hidden-xs">&nbsp;Search on LinkedIn</span>
+                </button>
+                <button id="addSynonymEducation" class="btn btn-success pull-right" ng-click="showSynonym()">
+                    <span class="glyphicon glyphicon-plus-sign"></span> &nbsp;
+                    <span class="hidden-xs" >Add new</span>
+                </button>
+                <div style="display:none;" id="showSynonymEducation">
+                    <h4>Add new </h4>
+                    <span class="semicolon">*Please use ; (semicolon) if you want to add more than 1 {{selectedType}} !</span>
+                    <textarea type="text" class="textArea" ng-model="newSynonym" cols="165" rows="7"> </textarea> <br />
+                    <button class="btn btn-success" ng-click="addSynonym('education')">Add</button> <br />
+                    <span class="savedMessage">The Application is wiser now!</span>
+                </div>
+                <h4>Certification</h4>
+                <div class="searchResults">
+                    <ul ng-repeat="res in listCertification">
+                        <li ng-show="showType">
+                            {{res.Word}}
+                        </li>
+                    </ul>
+                </div>
+                <button ng-click="linkedinSearch(listCertification,'synonyms','keywords')" class="btn btn-info">
+                    <span class="glyphicon glyphicon-search"></span>
+                    <span class="hidden-xs" >&nbsp;Search on LinkedIn</span>
+                </button>
+                <button class="btn btn-success pull-right" id="addSynonymCertification" ng-click="showSynonym()">
+                    <span class="glyphicon glyphicon-plus-sign"></span> &nbsp;
+                    <span class="hidden-xs" >Add new</span>
+                </button>
+
+                <div style="display:none;" id="showSynonymCertification">
+                    <h4>Add new </h4>
+                    <span class="semicolon">*Please use ; (semicolon) if you want to add more than 1 {{selectedType}} !</span>
+                    <textarea type="text" class="textArea" ng-model="newSynonym" cols="165" rows="7"> </textarea> <br />
+                    <button class="btn btn-success" ng-click="addSynonym('certification')">Add</button> <br />
+                    <span class="savedMessage">The Application is wiser now!</span>
+                </div>
+                <br />
+                <br />
+                <h3><strong>Result SearchStrings</strong></h3>
+                <hr />
+                <h4>Skills</h4>
+                <div class="searchResults">
+                    <ul ng-repeat="res in listSkills">
+                       <li>
+                            {{res.SearchString}}
+                       </li>
+                    </ul>
+                </div>
+                <button ng-click="linkedinSearch(listSkills,'SearchStrings','keywords')" class="btn btn-info">
+                    <span class="glyphicon glyphicon-search"></span>
+                    <span class="hidden-xs" >&nbsp;Search on LinkedIn</span>
+                </button>
+                <button class="btn btn-success pull-right" id="addSearchStringSkills" ng-click="showSearchStrings()">
+                    <span class="glyphicon glyphicon-plus-sign"></span> &nbsp;
+                    <span class="hidden-xs" >Add new</span>
+                </button>
+                <div style="display:none;" id="showSearchStringSkills">
+                    <h4>Add new </h4>
+                    <span class="semicolon">*Please use ; (semicolon) if you want to add more than 1 {{selectedType}} !</span>
+                    <textarea type="text" class="textArea" ng-model="newSearchString" cols="165" rows="7"> </textarea> <br />
+                    <button class="btn btn-success" ng-click="addSearchString('skills')">Add</button> <br />
+                    <span class="savedMessage">The Application is wiser now!</span>
+                </div>
+                <h4>Job Titles</h4>
+                <div class="searchResults">
+                    <ul ng-repeat="res in listJobTittles">
+                        <li>
+                            {{res.SearchString}}
+                        </li>
+                    </ul>
+                </div>
+                <button ng-click="linkedinSearch(listJobTittles,'SearchStrings','title')" class="btn btn-info">
+                    <span class="glyphicon glyphicon-search"></span>
+                    <span class="hidden-xs" >&nbsp;Search on LinkedIn</span>
+                </button>
+                <button class="btn btn-success pull-right" id="addSearchStringJobTittles" ng-click="showSearchStrings()">
+                    <span class="glyphicon glyphicon-plus-sign"></span> &nbsp;
+                    <span  class="hidden-xs" >Add new</span>
+                </button>
+                <div style="display:none;" id="showSearchStringJobTittles">
+                    <h4>Add new </h4>
+                    <span class="semicolon">*Please use ; (semicolon) if you want to add more than 1 {{selectedType}} !</span>
+                    <textarea type="text" class="textArea" ng-model="newSearchString" cols="165" rows="7"> </textarea> <br />
+                    <button class="btn btn-success" ng-click="addSearchString('jobtitles')">Add</button> <br />
+                    <span class="savedMessage">The Application is wiser now!</span>
+                </div>
+                <h4>Education</h4>
+                <div class="searchResults">
+                    <ul ng-repeat="res in listEducation">
+                        <li>
+                            {{res.SearchString}}
+                        </li>
+                    </ul>
+                </div>
+                <button ng-click="linkedinSearch(listEducation,'SearchStrings','school')" class="btn btn-info">
+                    <span class="glyphicon glyphicon-search"></span>
+                    <span class="hidden-xs" >&nbsp;Search on LinkedIn</span>
+                </button>
+                <button class="btn btn-success pull-right" id="addSearchStringEducation" ng-click="showSearchStrings()">
+                    <span class="glyphicon glyphicon-plus-sign"></span> &nbsp;
+                    <span class="hidden-xs" >Add new</span>
+                </button>
+                <div style="display:none;" id="showSearchStringEducation">
+                    <h4>Add new </h4>
+                    <span class="semicolon">*Please use ; (semicolon) if you want to add more than 1 {{selectedType}} !</span>
+                    <textarea type="text" class="textArea" ng-model="newSearchString" cols="165" rows="7"> </textarea> <br />
+                    <button class="btn btn-success" ng-click="addSearchString('education')">Add</button> <br />
+                    <span class="savedMessage">The Application is wiser now!</span>
+                </div>
+                <h4>Certification</h4>
+                <div class="searchResults">
+                    <ul ng-repeat="res in listCertification">
+                        <li>
+                            {{res.SearchString}}
+                        </li>
+                    </ul>
+                </div>
+                <button ng-click="linkedinSearch(listCertification,'SearchStrings','keywords')" class="btn btn-info">
+                    <span class="glyphicon glyphicon-search">
+                    </span><span class="hidden-xs" >&nbsp;Search on LinkedIn</span>
+                </button>
+                <button class="btn btn-success pull-right" id="addSearchStringCertification" ng-click="showSearchStrings()">
+                    <span class="glyphicon glyphicon-plus-sign"></span> &nbsp; 
+                    <span class="hidden-xs" >Add new</span>
+                </button>
+                <div style="display:none;" id="showSearchStringCertification">
+                    <h4>Add new </h4>
+                    <span class="semicolon">*Please use ; (semicolon) if you want to add more than 1 {{selectedType}} !</span>
+                    <textarea type="text" class="textArea" ng-model="newSearchString" cols="165" rows="7"> </textarea> <br />
+                    <button class="btn btn-success" ng-click="addSearchString('certification')">Add</button> <br />
+                    <span class="savedMessage">The Application is wiser now!</span>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>

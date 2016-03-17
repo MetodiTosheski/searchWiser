@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_9F91EC_comradeModelStoreContainer" CdmEntityContainer="DB_9F91EC_comradeEntities">
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="DB_9F91EC_comradeModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SearchStringsCategories">
+      <EntityTypeMapping TypeName="DB_9F91EC_comradeModel.SearchStringsCategory">
+        <MappingFragment StoreEntitySet="SearchStringsCategory">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="SearchString" ColumnName="SearchString" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="SearchStringGroupID" ColumnName="SearchStringGroupID" />
+          <ScalarProperty Name="Available" ColumnName="Available" />
+          <ScalarProperty Name="PostedBy" ColumnName="PostedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="DB_9F91EC_comradeModel.User">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="user_password" ColumnName="user_password" />
+          <ScalarProperty Name="Points" ColumnName="Points" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="WordsCategories">
+      <EntityTypeMapping TypeName="DB_9F91EC_comradeModel.WordsCategory">
+        <MappingFragment StoreEntitySet="WordsCategory">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Word" ColumnName="Word" />
+          <ScalarProperty Name="CategoryID" ColumnName="CategoryID" />
+          <ScalarProperty Name="WordsGroup" ColumnName="WordsGroup" />
+          <ScalarProperty Name="Available" ColumnName="Available" />
+          <ScalarProperty Name="PostedBy" ColumnName="PostedBy" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

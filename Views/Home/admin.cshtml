@@ -1,0 +1,62 @@
+﻿@section Scripts {
+    <script src="~/Content/js/app-category.js"></script>
+    <script src="~/Content/js/CategoryController.js"></script>
+    <script src="~/Content/js/app/adminController.js" ></script>
+}
+
+<div ng-app="app-category">
+    <div ng-controller="adminController" class="admin" style="display: none;">
+        <button ng-click="addNew()" class="btn btn-success">
+            <span class="glyphicon glyphicon-plus-sign"></span>
+            <span>Add new account</span>
+        </button>
+        <br />
+        <br />
+        <table class="table table-hover">
+            <tr>
+                <th>
+                    <strong>Name</strong>
+                </th>
+                <th>
+                    <strong>Surname</strong>
+                </th>
+                <th>
+                    <strong>Positon</strong>
+                </th>
+                <th>
+                    <strong>E-mail</strong>
+                </th>
+                <th>
+                    <strong>Role</strong>
+                </th>
+                <th>
+                    <strong>Actions</strong>
+                </th>
+            </tr>
+            <tbody>
+                <tr ng-repeat="user in users">
+                    <td>
+                        <input class="form-control" type="text" ng-model="user.Name"/>
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" ng-model="user.Surname" />
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" ng-model="user.Position" />
+                    </td>
+                    <td>
+                        <input class="form-control" type="text" ng-model="user.email" />
+                    </td>
+                    <td>
+                        <select class="form-control" ng-init="user.Role" ng-model="user.Role" ng-options="option for option in roles"></select>
+                    </td>
+                    <td>
+                        <button ng-click="save(user)" class="btn btn-success glyphicon glyphicon-floppy-save"></button>
+                        <button ng-click="remove(user)" class="btn btn-danger glyphicon glyphicon-remove"></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button class="btn btn-default" ng-click="back()"><span class="glyphicon glyphicon-chevron-left"></span></button>
+    </div>
+</div>
